@@ -1,0 +1,89 @@
+$def with (movies, count, page, search)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搜索</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+        body{
+            padding-left: 20px;
+        }
+        .movie:hover{border: 1px solid;} /*当鼠标放上去的时候*/
+    </style>
+</head>
+<body>
+<h4><a href="/">返回首页</a></h4>
+<h1>He Kang's Movie Site</h1>
+<hr>
+<!-- 搜索框 -->
+<form action="/library/1" method="post" class="form-inline" padding-bottom: 20px">
+    <input type="text" name='title' class="form-control" placeholder="电影名..." value="$search" style="width: 400px" />
+    <button type="submit" class="btn btn-default">search</button>
+</form>
+<h3 style="padding-bottom: 10px">共有$count部影片</h3>
+$ num = 0
+<!-- 电影列表 -->
+<div class="row">
+    <div class="col-md-9 left">
+        $for movie in movies:
+            <a href="/movie/$movie.id">
+            <div class="col-md-2 movie" style="height: 180px; padding: 2px;text-align:center;">
+                <div class="cover" style="height: 150px">
+                    <img src="$movie.image_medium" style="margin: 0px">
+                </div>
+                <div>$movie.title</div>
+            </div>
+            </a>
+    </div>
+    <div class="col-md-3 right">索引栏</div>
+</div>
+<!-- 分页导航栏 -->
+<nav aria-label="Page navigation" class="col-md-9" style="text-align:center;">
+    <ul class="pagination">
+        $if int(page) == 1:
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&laquo;</span>
+                </span>
+            </li>
+        $else:
+            <li>
+                <a href="/library/$(int(page)-1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        $ pages = count%20==0 and count/24 or count/24+1
+        $for i in xrange(1, pages+1):
+            $if i == int(page):
+                <li class="active"><a href="JavaScript:void(0)">$i</a></li>
+            $else:
+                <li><a href="/library/$i">$i</a></li>
+        $if int(page) == pages:
+            <li class="disabled">
+                <span>
+                    <span aria-hidden="true">&raquo;</span>
+                </span>
+            </li>
+        $else:
+            <li>
+                <a href="/library/$(int(page)+1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+    </ul>
+</nav>
+</body>
+</html>

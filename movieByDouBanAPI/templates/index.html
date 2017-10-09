@@ -1,0 +1,57 @@
+$def with (movies, count, page)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <style type="text/css">
+    	body{
+    		padding-left: 20px;
+    	}
+		.movie:hover{border: 1px solid;}
+    </style>
+</head>
+<body>
+<h4>欢迎来到</h4>
+<h1>He Kang's Movie Site</h1>
+<hr>
+<!-- 搜索框 -->
+<form action="/library/1" method="get" class="form-inline" padding-bottom: 20px">
+    <input type="text" name='title' class="form-control" placeholder="电影名..." style="width: 400px"/>
+    <button type="submit" class="btn btn-default">search</button>
+</form>
+<h3>热门电影Top20</h3>
+<div class="row">
+    <h3 class="col-md-6"></h3>
+    <h4 class="col-md-6"><a href="/library/1">更多</a></h4>
+</div>
+<!-- 电影列表 -->
+<div class="row">
+    <div class="col-md-7 right">
+        $for movie in movies:
+        	<a href="/movie/$movie.id">
+            <div class="col-md-3 movie" style="height: 180px; padding: 2px;text-align: center;">
+                <div class="cover" style="height: 150px">
+                    <img src="$movie.image_medium" style="margin: 0px">
+                </div>
+                <div>$movie.title</div>
+            </div>
+            </a>
+    </div>
+    <div class="col-md-5 left">索引栏</div>
+</div>
+</body>
+</html>

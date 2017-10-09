@@ -1,0 +1,4 @@
+liubei	40.20
+zhangfei	43.00
+guanyu	43.83
+zhugeliang	88.67

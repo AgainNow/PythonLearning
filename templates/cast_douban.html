@@ -1,0 +1,6 @@
+$def with (cast_name, movies)
+<h4><a href="/">返回首页</a></h4>
+<h1>演员作品 -- $cast_name</h1>
+<hr>
+$for movie in movies:
+    <p><a href="/movie/$movie.id">$movie.title</a></p>
